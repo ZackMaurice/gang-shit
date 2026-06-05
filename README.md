@@ -3,7 +3,7 @@ Install deps:
 
 
 Get a discord token:\
-https://discord.com/developers/applications\
+https://discord.com/developers/applications  
 Create a new application, name it\
 In the left-hand menu, click on the Bot tab.\
 Under the Privileged Gateway Intents section, toggle on Presence Intent, Server Members Intent, and Message Content Intent (message permissions).\
