@@ -22,13 +22,38 @@ client.on('messageCreate', async message => {
     }
     if (message.content.startsWith('!price')) {
         const item = message.content.split('!price ')[1]; // Get the item name
-        const price = await getPrice(item);
+        const searchResults = await searchByItemName(item);
+        console.log(searchResults);
 
-        console.log(price);
+        let strResponse = "";
+        for(const result of searchResults){
+            const price = await getPrice(result.hash_name);
+            strResponse += result.hash_name + " - " + price + '\n';
+        }
 
-        message.reply(price); // Reply with the price
+        // console.log(price);
+
+        message.reply(strResponse); // Reply with the price
     }
 });
+
+const searchByItemName = async (item) => {
+    
+    console.log(`Fetching full hash name for input: ${item}`);
+    try {
+        const response = await axios.get(`https://steamcommunity.com/market/search/render?norender=1&start=0&count=5&query=${item}`);
+        // console.log('API response:', response.data);
+        if (response.data.success && response.data.results.length != 0) {
+            console.log(`Got hash name ${response.data.results[0].hash_name}`);
+            return response.data.results;
+        } else {
+            return 'Failed to retrieve item';
+        }
+    } catch(error) {
+        console.error('fuck:', error);
+        return 'fuck';
+    }
+}
 
 async function getPrice(item) {
     console.log(`Fetching price for item: ${item}`);
@@ -36,7 +61,7 @@ async function getPrice(item) {
         const response = await axios.get(`https://steamcommunity.com/market/priceoverview/?country=CA&currency=20&appid=730&market_hash_name=${item}`);
         console.log('API response:', response.data);
         if (response.data.success) {
-            return response.data.lowest_price || 'Price not available';
+            return response.data.median_price || 'Price not available';
         } else {
             return 'Failed to retrieve price';
         }
