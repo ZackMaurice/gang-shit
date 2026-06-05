@@ -20,3 +20,7 @@ Go to the OAuth2 tab in the left menu, then select URL Generator.\
 Under Scopes, check the bot box.\
 Under Bot Permissions, give it View Channels, Send Messages, Manage Messages.\
 Copy the generated URL at the bottom of the page, paste it into a new web browser tab, select server.
+
+
+Now run the bot:
+> node ./bot.js
