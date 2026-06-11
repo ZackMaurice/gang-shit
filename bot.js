@@ -44,6 +44,7 @@ client.on('messageCreate', async message => {
 
         let items = [];
         for (const result of searchResults) {
+            console.log(result);
             const price = await getPrice(result.hash_name);
             const quality = result.hash_name.match(/\(([^)]+)\)/);
             // strResponse += result.hash_name + " - " + price + '\n';
@@ -62,6 +63,9 @@ client.on('messageCreate', async message => {
         for (const skin of items) {
             strResponse += skin.name + " - " + skin.price + '\n';
         }
+        if(strResponse.length === 0){
+            strResponse = "No results found.";
+        }
         message.reply(strResponse); // Reply with the price
     }
 });
@@ -75,7 +79,7 @@ const searchByItemName = async (item) => {
             console.log(`Got hash name ${response.data.results[0].hash_name}`);
             return response.data.results;
         } else {
-            return 'Failed to retrieve item';
+            return [];
         }
     } catch (error) {
         console.error('fuck:', error);

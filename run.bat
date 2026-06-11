@@ -1,1 +1,1 @@
-node ./bot.js
+node ./bot.js > log.txt
