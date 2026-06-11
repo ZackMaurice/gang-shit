@@ -148,3 +148,4 @@ vite.config.ts.timestamp-*
 
 #####
 package-lock.json
+cs2_inventory_snapshot.json
