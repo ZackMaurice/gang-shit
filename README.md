@@ -10,6 +10,7 @@ Under the Privileged Gateway Intents section, toggle on Presence Intent, Server 
 Scroll up to the Build-A-Bot section and click Reset Token\
 put it in the next step
 
+also get a steam api key https://steamcommunity.com/dev/apikey
 
 Create a .env file:\
 TOKEN=<Token From Discord>
